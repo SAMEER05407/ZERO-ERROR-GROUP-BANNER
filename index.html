@@ -1,0 +1,811 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚀 WhatsApp Group Creator Pro</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 10px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            background: transparent;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding: 20px 0;
+        }
+
+        .header {
+            background: rgba(0,0,0,0.3);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 25px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .header h1 {
+            font-size: 1.4em;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .header .subtitle {
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+
+        .header .nav-links {
+            margin-top: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .header .nav-links a {
+            color: white;
+            text-decoration: none;
+            background: rgba(255,255,255,0.2);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+        }
+
+        .header .nav-links a:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .card {
+            background: rgba(255,255,255,0.95);
+            border-radius: 25px;
+            padding: 25px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .whatsapp-logo {
+            width: 60px;
+            height: 60px;
+            background: #25D366;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 30px;
+        }
+
+        .card-title {
+            text-align: center;
+            font-size: 1.5em;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+
+        .card-subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            margin-bottom: 25px;
+            font-size: 0.95em;
+        }
+
+        .status {
+            padding: 15px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            font-weight: 600;
+            text-align: center;
+            font-size: 0.95em;
+        }
+
+        .status.connected {
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: white;
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
+        }
+
+        .status.disconnected {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.3);
+        }
+
+        .notice-card {
+            background: linear-gradient(135deg, #ff9a9e, #fecfef);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+            color: white;
+            font-weight: 500;
+        }
+
+        .notice-card h3 {
+            font-size: 1.1em;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .notice-card p {
+            font-size: 0.9em;
+            line-height: 1.5;
+            opacity: 0.95;
+        }
+
+        .qr-section {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .qr-code {
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .qr-code img {
+            max-width: 250px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 0.95em;
+        }
+
+        .form-group textarea,
+        .form-group input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e1e8ed;
+            border-radius: 15px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            background: #f8f9fa;
+        }
+
+        .form-group textarea:focus,
+        .form-group input:focus {
+            outline: none;
+            border-color: #25D366;
+            box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.1);
+            background: white;
+        }
+
+        .form-group textarea {
+            height: 120px;
+            resize: vertical;
+        }
+
+        .foreign-numbers {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .toggle-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            padding: 18px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            border: 2px solid #e9ecef;
+        }
+
+        .toggle {
+            position: relative;
+            width: 60px;
+            height: 30px;
+            margin-right: 15px;
+        }
+
+        .toggle input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #ccc;
+            transition: .4s;
+            border-radius: 30px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 22px;
+            width: 22px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        input:checked + .slider {
+            background: #25D366;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(30px);
+        }
+
+        .toggle-label {
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 0.95em;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 18px;
+            border: none;
+            border-radius: 15px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: white;
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(37, 211, 102, 0.4);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-secondary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, #ff9a9e, #fecfef);
+            color: white;
+            box-shadow: 0 8px 20px rgba(255, 154, 158, 0.3);
+        }
+
+        .btn-warning:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(255, 154, 158, 0.4);
+        }
+
+        .logs {
+            background: rgba(0,0,0,0.9);
+            border-radius: 15px;
+            padding: 20px;
+            height: 200px;
+            overflow-y: auto;
+            font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.5;
+            margin-top: 20px;
+            color: #00ff88;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .log-entry {
+            margin-bottom: 6px;
+            padding: 4px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .log-entry:last-child {
+            border-bottom: none;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .success-notice {
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 600;
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
+        }
+
+        /* Mobile responsive */
+        @media (max-width: 480px) {
+            .container {
+                max-width: 100%;
+                padding: 10px;
+            }
+
+            .card {
+                padding: 20px;
+                margin: 0 5px;
+            }
+
+            .foreign-numbers {
+                gap: 8px;
+            }
+
+            .toggle-container {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+
+            .toggle {
+                margin-right: 0;
+            }
+        }
+
+        /* Scrollbar styling */
+        .logs::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .logs::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.1);
+            border-radius: 3px;
+        }
+
+        .logs::-webkit-scrollbar-thumb {
+            background: rgba(0,255,136,0.5);
+            border-radius: 3px;
+        }
+
+        .logs::-webkit-scrollbar-thumb:hover {
+            background: rgba(0,255,136,0.7);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>WhatsApp Group Creator Pro</h1>
+            <p class="subtitle">Professional Group Management</p>
+            <div class="nav-links">
+                <a href="/logout">🚪 Logout</a>
+            </div>
+        </div>
+
+        <div id="qr-section" class="card">
+            <div class="whatsapp-logo">📱</div>
+            <h2 class="card-title">Scan QR Code</h2>
+            <p class="card-subtitle">Connect your WhatsApp to continue</p>
+            
+            <div id="qr-code" class="qr-code">
+                <p>Generating QR Code...</p>
+            </div>
+            
+            <button id="generate-qr-btn" class="btn btn-secondary">
+                🔄 Restart & Get New QR
+            </button>
+        </div>
+
+        <div id="status" class="status disconnected">
+            ● Status: Disconnected
+        </div>
+
+        <div id="main-form" class="hidden">
+            <div class="notice-card">
+                <h3>📢 Important Notice</h3>
+                <p>✅ Improved Group Creator: Now with retry mechanism, better error handling, and detailed progress tracking. Each group creation has 10-15 seconds delay to prevent account restrictions. Failed groups will be retried automatically up to 3 times.</p>
+            </div>
+
+            <div class="card">
+                <h3 style="margin-bottom: 20px; color: #2c3e50; font-weight: 600;">👥 Create Groups</h3>
+                
+                <div class="form-group">
+                    <label for="group-links">🧾 Group Invite Links (one per line):</label>
+                    <textarea 
+                        id="group-links" 
+                        placeholder="https://chat.whatsapp.com/xyz123&#10;https://chat.whatsapp.com/abc456&#10;https://chat.whatsapp.com/def789"
+                    ></textarea>
+                </div>
+
+                <div class="toggle-container">
+                    <label class="toggle">
+                        <input type="checkbox" id="make-admin">
+                        <span class="slider"></span>
+                    </label>
+                    <label for="make-admin" class="toggle-label">👥 Make all members admin</label>
+                </div>
+
+                <div class="form-group">
+                    <label>🌍 Add Foreign Numbers (with country code):</label>
+                    <div class="foreign-numbers">
+                        <input type="text" id="number1" placeholder="+44 1234567890">
+                        <input type="text" id="number2" placeholder="+1 2345678901">
+                        <input type="text" id="number3" placeholder="+91 3456789012">
+                    </div>
+                </div>
+
+                <button id="process-btn" class="btn btn-primary">
+                    🔥 Start Process
+                </button>
+
+                <button type="button" id="restart-btn" class="btn btn-warning">
+                    🔄 Restart Session
+                </button>
+
+                <div id="logs" class="logs">
+                    <div class="log-entry">💡 Group creator ready to process groups...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+        const qrSection = document.getElementById('qr-section');
+        const qrCode = document.getElementById('qr-code');
+        const status = document.getElementById('status');
+        const mainForm = document.getElementById('main-form');
+        const processBtn = document.getElementById('process-btn');
+        const restartBtn = document.getElementById('restart-btn');
+        const generateQrBtn = document.getElementById('generate-qr-btn');
+        const logs = document.getElementById('logs');
+
+        let isConnected = false;
+        let userID = null;
+
+        // Generate fresh QR code
+        function generateNewQR() {
+            qrCode.innerHTML = '<p>Generating QR Code...</p>';
+            socket.emit('request-qr');
+            addLog('🔄 Requesting fresh QR code...');
+        }
+
+        function addLog(message) {
+            const logEntry = document.createElement('div');
+            logEntry.className = 'log-entry';
+            logEntry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            logs.appendChild(logEntry);
+            logs.scrollTop = logs.scrollHeight;
+        }
+
+        function updateStatus(connected) {
+            isConnected = connected;
+            if (connected) {
+                status.textContent = '✅ Status: Connected';
+                status.className = 'status connected';
+                qrSection.classList.add('hidden');
+                mainForm.classList.remove('hidden');
+                addLog('🔥 WhatsApp connected! Group creator is ready.');
+            } else {
+                status.textContent = '● Status: Disconnected';
+                status.className = 'status disconnected';
+                qrSection.classList.remove('hidden');
+                mainForm.classList.add('hidden');
+                addLog('📱 WhatsApp disconnected. Please scan QR code.');
+            }
+        }
+
+        // Initialize user session with session timeout handling
+        async function initializeUserSession() {
+            try {
+                const response = await fetch('/user-status');
+
+                if (!response.ok) {
+                    console.log('User not authenticated, redirecting to login');
+                    window.location.href = '/login';
+                    return false;
+                }
+
+                const result = await response.json();
+
+                // Check if we need to redirect to login
+                if (result.redirectToLogin || !result.userID) {
+                    console.log('Authentication required, redirecting to login');
+                    window.location.href = '/login';
+                    return false;
+                }
+
+                userID = result.userID;
+                console.log('User authenticated:', userID);
+
+                // Pass user phone to socket for session isolation
+                console.log('Initializing socket session for user:', userID);
+                socket.emit('initialize-session', { userID: userID });
+
+                if (result.connected) {
+                    updateStatus(true);
+                } else {
+                    updateStatus(false);
+                }
+
+                return true;
+
+            } catch (error) {
+                console.error('Error initializing session:', error);
+                addLog('❌ Authentication error, redirecting to login...');
+                setTimeout(() => {
+                    window.location.href = '/login';
+                }, 2000);
+                return false;
+            }
+        }
+
+        // Socket events
+        socket.on('qr', (qrDataURL) => {
+            qrCode.innerHTML = `<img src="${qrDataURL}" alt="QR Code">`;
+            addLog('📸 Fresh QR Code generated. Scan with WhatsApp to login.');
+
+            // Ensure QR section is visible
+            if (qrSection.classList.contains('hidden')) {
+                updateStatus(false);
+            }
+        });
+
+        socket.on('connected', () => {
+            addLog('🔥 WhatsApp connected successfully!');
+            updateStatus(true);
+        });
+
+        socket.on('disconnected', () => {
+            addLog('📱 WhatsApp disconnected. Please scan QR code to reconnect.');
+            updateStatus(false);
+        });
+
+        socket.on('status', (message) => {
+            addLog(message);
+        });
+
+        socket.on('user-status', (data) => {
+            if (data.userID === userID) {
+                addLog(data.message);
+            }
+        });
+
+        socket.on('error', (error) => {
+            addLog(`💥 Error: ${error}`);
+            // If there's an error, show QR section again
+            updateStatus(false);
+        });
+
+        // Start process button
+        processBtn.addEventListener('click', async () => {
+            if (!isConnected) {
+                addLog('❌ Please connect to WhatsApp first!');
+                return;
+            }
+
+            const groupLinks = document.getElementById('group-links').value.trim();
+            const makeAdmin = document.getElementById('make-admin').checked;
+            const foreignNumbers = [
+                document.getElementById('number1').value.trim(),
+                document.getElementById('number2').value.trim(),
+                document.getElementById('number3').value.trim()
+            ].filter(num => num);
+
+            if (!groupLinks) {
+                addLog('❌ Please enter at least one group invite link!');
+                return;
+            }
+
+            if (foreignNumbers.length === 0) {
+                addLog('⚠️ No foreign numbers provided. Continuing with admin takeover only.');
+            }
+
+            processBtn.disabled = true;
+            processBtn.textContent = '🔥 Processing...';
+
+            addLog('🚀 Starting group creator process...');
+
+            try {
+                const response = await fetch('/process-groups', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        groupLinks,
+                        makeAdmin,
+                        foreignNumbers
+                    })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    addLog('🎉 Group creator completed successfully!');
+                } else {
+                    addLog(`💥 Error: ${result.message}`);
+                }
+            } catch (error) {
+                addLog(`💥 Network error: ${error.message}`);
+            }
+
+            processBtn.disabled = false;
+            processBtn.textContent = '🔥 Start Process';
+        });
+
+        // Restart session button
+        restartBtn.addEventListener('click', async () => {
+            if (!confirm('Are you sure you want to restart your WhatsApp session? This will disconnect you and require a new QR scan.')) {
+                return;
+            }
+
+            restartBtn.disabled = true;
+            restartBtn.textContent = '🔄 Restarting...';
+
+            addLog('🔁 Restarting WhatsApp session...');
+            addLog('⏳ Logging out from WhatsApp and clearing session...');
+
+            try {
+                const response = await fetch('/restart-session', {
+                    method: 'POST'
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    addLog('✅ Session restarted successfully.');
+                    addLog('📱 Generating new QR code...');
+
+                    // Force UI to show QR section
+                    updateStatus(false);
+
+                    // Clear any existing QR code
+                    qrCode.innerHTML = '<p>Generating fresh QR Code...</p>';
+
+                    // Request fresh QR code
+                    setTimeout(() => {
+                        socket.emit('request-qr');
+                        addLog('🔄 Requesting new QR code...');
+                    }, 1000);
+
+                } else {
+                    addLog(`💥 Error restarting session: ${result.message}`);
+                }
+            } catch (error) {
+                addLog(`💥 Network error: ${error.message}`);
+            }
+
+            restartBtn.disabled = false;
+            restartBtn.textContent = '🔄 Restart Session';
+        });
+
+        // Generate new QR button
+        generateQrBtn.addEventListener('click', () => {
+            generateQrBtn.disabled = true;
+            generateQrBtn.textContent = '🔄 Generating...';
+
+            addLog('🔄 Requesting new QR code...');
+            qrCode.innerHTML = '<p>Generating QR Code...</p>';
+
+            // Request fresh QR code
+            socket.emit('request-qr');
+
+            setTimeout(() => {
+                generateQrBtn.disabled = false;
+                generateQrBtn.textContent = '🔄 Restart & Get New QR';
+            }, 2000);
+        });
+
+        // Check authentication before doing anything with session timeout
+        async function checkAuthentication() {
+            try {
+                const response = await fetch('/user-status');
+                if (!response.ok) {
+                    throw new Error('Not authenticated');
+                }
+                const result = await response.json();
+                if (result.redirectToLogin || !result.userID) {
+                    throw new Error('Authentication required');
+                }
+                return true;
+            } catch (error) {
+                console.log('Authentication check failed:', error.message);
+                window.location.href = '/login';
+                return false;
+            }
+        }
+
+        // Periodic session check to auto-logout on timeout
+        setInterval(async () => {
+            try {
+                const response = await fetch('/user-status');
+                if (!response.ok) {
+                    console.log('Session expired, redirecting to login');
+                    window.location.href = '/login';
+                }
+            } catch (error) {
+                console.log('Error checking auth:', error);
+                // On network error, redirect to login for security
+                window.location.href = '/login';
+            }
+        }, 60000); // Check every minute
+
+        // Initialize when page loads
+        window.addEventListener('load', async () => {
+            // First check authentication
+            const isAuthenticated = await checkAuthentication();
+            if (!isAuthenticated) {
+                return; // Don't proceed if not authenticated
+            }
+
+            addLog('🚀 WhatsApp Group Creator Pro starting...');
+            // Initialize session and generate QR immediately
+            const sessionInitialized = await initializeUserSession();
+            if (!sessionInitialized) {
+                return; // Session initialization failed
+            }
+        });
+
+        // Auto-logout on page refresh/reload for security
+        window.addEventListener('beforeunload', () => {
+            // Clear any stored session data on page unload
+            sessionStorage.clear();
+        });
+
+        // Auto-logout on browser tab visibility change (optional security measure)
+        document.addEventListener('visibilitychange', async () => {
+            if (document.visibilityState === 'visible') {
+                // Re-check authentication when tab becomes visible again
+                const isAuthenticated = await checkAuthentication();
+                if (!isAuthenticated) {
+                    return;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

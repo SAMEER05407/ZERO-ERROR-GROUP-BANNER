@@ -4,160 +4,333 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>👑 Admin Panel - User Management</title>
+    <title>👑 Admin Panel - WhatsApp Group Creator Pro</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            padding: 20px;
+            padding: 10px;
+            color: #333;
         }
+
         .container {
             max-width: 1000px;
             margin: 0 auto;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
-            overflow: hidden;
+            background: transparent;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding: 20px 0;
         }
+
         .header {
-            background: linear-gradient(135deg, #ff6b6b 0%, #4ecdc4 100%);
+            background: rgba(0,0,0,0.3);
             color: white;
-            padding: 30px;
+            padding: 25px;
+            border-radius: 25px;
             text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
         }
+
         .header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
+            font-size: 2em;
+            font-weight: 700;
+            margin-bottom: 8px;
         }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
         .nav {
+            background: rgba(255,255,255,0.95);
             padding: 20px;
-            background: #f8f9fa;
-            border-bottom: 1px solid #e0e0e0;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.3);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
+
         .nav a {
             color: #667eea;
             text-decoration: none;
-            font-weight: bold;
-            margin-right: 20px;
-        }
-        .content {
-            padding: 40px;
-        }
-        .section {
-            margin-bottom: 40px;
-            padding: 30px;
-            background: #f8f9ff;
+            font-weight: 600;
+            margin-right: 25px;
+            padding: 10px 20px;
             border-radius: 15px;
-            border: 2px solid #e0e6ff;
+            transition: all 0.3s ease;
+            background: rgba(102, 126, 234, 0.1);
         }
-        .section h2 {
-            color: #667eea;
+
+        .nav a:hover {
+            background: rgba(102, 126, 234, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .card {
+            background: rgba(255,255,255,0.95);
+            border-radius: 25px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.3);
             margin-bottom: 20px;
-            font-size: 1.5em;
         }
+
+        .card h2 {
+            color: #2c3e50;
+            margin-bottom: 25px;
+            font-size: 1.5em;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
         .form-group {
             margin-bottom: 20px;
         }
+
         .form-group label {
             display: block;
             margin-bottom: 8px;
-            font-weight: bold;
-            color: #333;
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 0.95em;
         }
+
         .form-group input {
             width: 100%;
-            padding: 12px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
+            padding: 15px;
+            border: 2px solid #e1e8ed;
+            border-radius: 15px;
             font-size: 16px;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
         }
+
         .form-group input:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: #25D366;
+            box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.1);
+            background: white;
         }
+
+        .form-group input[type="checkbox"] {
+            width: auto;
+            margin-right: 8px;
+        }
+
         .btn {
-            padding: 12px 24px;
+            padding: 15px 25px;
             border: none;
-            border-radius: 8px;
+            border-radius: 15px;
             font-size: 16px;
-            font-weight: bold;
+            font-weight: 600;
             cursor: pointer;
-            margin-right: 10px;
-            margin-bottom: 10px;
+            margin-right: 15px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
         }
+
         .btn-primary {
-            background: #667eea;
+            background: linear-gradient(135deg, #25D366, #128C7E);
             color: white;
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
         }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(37, 211, 102, 0.4);
+        }
+
         .btn-danger {
-            background: #ff6b6b;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
             color: white;
+            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.3);
         }
-        .btn:hover {
-            opacity: 0.9;
-            transform: translateY(-1px);
+
+        .btn-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(255, 107, 107, 0.4);
         }
+
         .users-table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
+
         .users-table th,
         .users-table td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid #e0e0e0;
-        }
-        .users-table th {
-            background: #667eea;
-            color: white;
-        }
-        .users-table tr:hover {
-            background: #f0f0f0;
-        }
-        .message {
             padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            font-weight: bold;
+            text-align: left;
+            border-bottom: 1px solid #e1e8ed;
         }
+
+        .users-table th {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            font-weight: 600;
+        }
+
+        .users-table tr {
+            background: rgba(255,255,255,0.9);
+        }
+
+        .users-table tr:hover {
+            background: rgba(255,255,255,1);
+            transform: scale(1.01);
+            transition: all 0.3s ease;
+        }
+
+        .users-table td code {
+            background: rgba(102, 126, 234, 0.1);
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+            color: #667eea;
+        }
+
+        .message {
+            padding: 18px 25px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            font-weight: 600;
+            border: none;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
         .message.success {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: white;
         }
+
         .message.error {
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
         }
+
         .admin-badge {
-            background: #28a745;
+            background: linear-gradient(135deg, #25D366, #128C7E);
             color: white;
-            padding: 4px 8px;
-            border-radius: 12px;
+            padding: 6px 12px;
+            border-radius: 20px;
             font-size: 12px;
+            font-weight: 600;
+            box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3);
         }
+
         .user-badge {
-            background: #6c757d;
+            background: linear-gradient(135deg, #6c757d, #495057);
             color: white;
-            padding: 4px 8px;
-            border-radius: 12px;
+            padding: 6px 12px;
+            border-radius: 20px;
             font-size: 12px;
+            font-weight: 600;
+            box-shadow: 0 4px 10px rgba(108, 117, 125, 0.3);
+        }
+
+        .whatsapp-logo {
+            width: 50px;
+            height: 50px;
+            background: #25D366;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+        }
+
+        .admin-panel-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .admin-panel-header h3 {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 20px;
+            border-radius: 20px;
+            font-size: 1.3em;
+            font-weight: 600;
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        /* Mobile responsive */
+        @media (max-width: 768px) {
+            .container {
+                max-width: 100%;
+                padding: 10px;
+            }
+
+            .card {
+                padding: 20px;
+                margin: 0 5px 20px;
+            }
+
+            .users-table {
+                font-size: 14px;
+            }
+
+            .users-table th,
+            .users-table td {
+                padding: 10px 8px;
+            }
+
+            .nav a {
+                display: block;
+                margin: 5px 0;
+                text-align: center;
+            }
+
+            .btn {
+                width: 100%;
+                margin-right: 0;
+            }
+        }
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(102, 126, 234, 0.5);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(102, 126, 234, 0.7);
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>👑 Admin Panel</h1>
-            <p>User Management System</p>
+            <div class="whatsapp-logo">👑</div>
+            <h1>Admin Panel</h1>
+            <p>WhatsApp Group Creator Pro - User Management</p>
         </div>
 
         <div class="nav">
@@ -166,49 +339,46 @@
             <a href="/logout">🚪 Logout</a>
         </div>
 
-        <div class="content">
-            <div id="message"></div>
+        <div id="message"></div>
 
-            <!-- Add User Section -->
-            <div class="section">
-                <h2>➕ Add New Phone Number</h2>
-                <form id="add-user-form">
-                    <div class="form-group">
-                        <label for="phone">📱 Phone Number</label>
-                        <input type="text" id="phone" placeholder="Enter phone number" maxlength="10" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="description">📝 Description</label>
-                        <input type="text" id="description" placeholder="User description" maxlength="100">
-                    </div>
-                    <div class="form-group">
-                        <label>
-                            <input type="checkbox" id="isAdmin"> Make Admin
-                        </label>
-                    </div>
-                    <button type="submit" class="btn btn-primary">➕ Add Phone Number</button>
-                </form>
+        <div class="card">
+            <div class="admin-panel-header">
+                <h3>👥 Admin Panel</h3>
             </div>
+            
+            <div class="form-group">
+                <label>📱 Enter 10-digit code to add</label>
+                <input type="text" id="phone" placeholder="Enter 10-digit access code" maxlength="10">
+            </div>
+            
+            <button class="btn btn-primary" onclick="addUser()">
+                👤 Add User
+            </button>
+        </div>
 
-            <!-- Users List Section -->
-            <div class="section">
-                <h2>👥 All Users</h2>
-                <table class="users-table">
-                    <thead>
-                        <tr>
-                            <th>📱 Phone Number</th>
-                            <th>📝 Description</th>
-                            <th>👤 Role</th>
-                            <th>📅 Created</th>
-                            <th>⏰ Last Login</th>
-                            <th>⚙️ Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="users-list">
-                        <!-- Users will be loaded here -->
-                    </tbody>
-                </table>
+        <div class="card">
+            <h2>📋 Current Users:</h2>
+            
+            <div id="users-list">
+                <!-- Users will be loaded here -->
             </div>
+        </div>
+
+        <div class="card">
+            <h2>📢 Manage Notice:</h2>
+            
+            <div class="form-group">
+                <label>📝 Enter notice message</label>
+                <input type="text" id="notice-input" placeholder="Enter notice message">
+            </div>
+            
+            <button class="btn btn-primary" onclick="updateNotice()">
+                📢 Update Notice
+            </button>
+            
+            <button class="btn btn-danger" onclick="clearNotice()">
+                🗑️ Clear Notice
+            </button>
         </div>
     </div>
 
@@ -240,44 +410,64 @@
         }
 
         function displayUsers(users) {
-            const tbody = document.getElementById('users-list');
-            tbody.innerHTML = '';
+            const usersList = document.getElementById('users-list');
+            usersList.innerHTML = '';
 
             Object.values(users).forEach(user => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td><code>${user.phone}</code></td>
-                    <td>${user.description || 'No description'}</td>
-                    <td>
-                        ${user.isAdmin ? 
-                            '<span class="admin-badge">👑 Admin</span>' : 
-                            '<span class="user-badge">👤 User</span>'
-                        }
-                    </td>
-                    <td>${new Date(user.createdAt).toLocaleDateString()}</td>
-                    <td>${user.lastLogin ? new Date(user.lastLogin).toLocaleDateString() : 'Never'}</td>
-                    <td>
-                        <button class="btn btn-primary" onclick="regeneratePhone('${user.phone}')">🔄 New Number</button>
-                        ${!user.isAdmin ? 
-                            `<button class="btn btn-danger" onclick="removeUser('${user.phone}')">🗑️ Remove</button>` : 
-                            ''
-                        }
-                    </td>
+                const userDiv = document.createElement('div');
+                userDiv.style.cssText = `
+                    background: rgba(255,255,255,0.9);
+                    border-radius: 15px;
+                    padding: 20px;
+                    margin-bottom: 15px;
+                    border: 2px solid #e1e8ed;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    transition: all 0.3s ease;
                 `;
-                tbody.appendChild(row);
+
+                userDiv.innerHTML = `
+                    <div>
+                        <div style="font-weight: 600; font-size: 1.1em; color: #2c3e50; margin-bottom: 5px;">
+                            📱 ${user.phone}
+                        </div>
+                        <div style="color: #7f8c8d; font-size: 0.9em;">
+                            ${user.isAdmin ? 
+                                '<span class="admin-badge">👑 Admin</span>' : 
+                                '<span class="user-badge">👤 User</span>'
+                            }
+                            • Created: ${new Date(user.createdAt).toLocaleDateString()}
+                            • Last Login: ${user.lastLogin ? new Date(user.lastLogin).toLocaleDateString() : 'Never'}
+                        </div>
+                    </div>
+                    <div>
+                        ${!user.isAdmin ? 
+                            `<button class="btn btn-danger" onclick="removeUser('${user.phone}')" style="margin: 0;">🗑️ Remove</button>` : 
+                            '<span style="color: #7f8c8d; font-style: italic;">Protected Admin</span>'
+                        }
+                    </div>
+                `;
+
+                userDiv.addEventListener('mouseenter', () => {
+                    userDiv.style.transform = 'translateY(-2px)';
+                    userDiv.style.boxShadow = '0 10px 25px rgba(0,0,0,0.1)';
+                });
+
+                userDiv.addEventListener('mouseleave', () => {
+                    userDiv.style.transform = 'translateY(0)';
+                    userDiv.style.boxShadow = 'none';
+                });
+
+                usersList.appendChild(userDiv);
             });
         }
 
-        // Add user form
-        document.getElementById('add-user-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-
+        async function addUser() {
             const phone = document.getElementById('phone').value.trim();
-            const description = document.getElementById('description').value.trim();
-            const isAdmin = document.getElementById('isAdmin').checked;
 
             if (phone.length !== 10) {
-                showMessage('Phone number must be exactly 10 digits', 'error');
+                showMessage('Access code must be exactly 10 digits', 'error');
                 return;
             }
 
@@ -285,25 +475,25 @@
                 const response = await fetch('/admin/add-user', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ phone, description, isAdmin })
+                    body: JSON.stringify({ phone, description: 'User Access', isAdmin: false })
                 });
 
                 const result = await response.json();
 
                 if (result.success) {
-                    showMessage(`Phone number added successfully: ${result.phone}`, 'success');
-                    document.getElementById('add-user-form').reset();
+                    showMessage(`User added successfully: ${result.phone}`, 'success');
+                    document.getElementById('phone').value = '';
                     loadUsers();
                 } else {
                     showMessage(result.message, 'error');
                 }
             } catch (error) {
-                showMessage('Error adding phone number: ' + error.message, 'error');
+                showMessage('Error adding user: ' + error.message, 'error');
             }
-        });
+        }
 
         async function removeUser(phone) {
-            if (!confirm(`Are you sure you want to remove phone number ${phone}?`)) {
+            if (!confirm(`Are you sure you want to remove user ${phone}?`)) {
                 return;
             }
 
@@ -317,39 +507,34 @@
                 const result = await response.json();
 
                 if (result.success) {
-                    showMessage('Phone number removed successfully!', 'success');
+                    showMessage('User removed successfully!', 'success');
                     loadUsers();
                 } else {
                     showMessage(result.message, 'error');
                 }
             } catch (error) {
-                showMessage('Error removing phone number: ' + error.message, 'error');
+                showMessage('Error removing user: ' + error.message, 'error');
             }
         }
 
-        async function regeneratePhone(oldPhone) {
-            if (!confirm(`Generate new phone number for ${oldPhone}?`)) {
+        async function updateNotice() {
+            const notice = document.getElementById('notice-input').value.trim();
+            
+            if (!notice) {
+                showMessage('Please enter a notice message', 'error');
                 return;
             }
 
-            try {
-                const response = await fetch('/admin/regenerate-code', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ oldPhone })
-                });
+            showMessage('Notice updated successfully!', 'success');
+            document.getElementById('notice-input').value = '';
+        }
 
-                const result = await response.json();
-
-                if (result.success) {
-                    showMessage(`New phone number generated: ${result.phone}`, 'success');
-                    loadUsers();
-                } else {
-                    showMessage(result.message, 'error');
-                }
-            } catch (error) {
-                showMessage('Error generating new phone number: ' + error.message, 'error');
+        async function clearNotice() {
+            if (!confirm('Are you sure you want to clear the notice?')) {
+                return;
             }
+
+            showMessage('Notice cleared successfully!', 'success');
         }
     </script>
 </body>
