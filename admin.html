@@ -1,0 +1,356 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>👑 Admin Panel - User Management</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #ff6b6b 0%, #4ecdc4 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        .nav {
+            padding: 20px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .nav a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: bold;
+            margin-right: 20px;
+        }
+        .content {
+            padding: 40px;
+        }
+        .section {
+            margin-bottom: 40px;
+            padding: 30px;
+            background: #f8f9ff;
+            border-radius: 15px;
+            border: 2px solid #e0e6ff;
+        }
+        .section h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+        .btn-danger {
+            background: #ff6b6b;
+            color: white;
+        }
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+        .users-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .users-table th,
+        .users-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .users-table th {
+            background: #667eea;
+            color: white;
+        }
+        .users-table tr:hover {
+            background: #f0f0f0;
+        }
+        .message {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        .message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .admin-badge {
+            background: #28a745;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+        }
+        .user-badge {
+            background: #6c757d;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>👑 Admin Panel</h1>
+            <p>User Management System</p>
+        </div>
+
+        <div class="nav">
+            <a href="/dashboard">🏠 Dashboard</a>
+            <a href="/admin">👑 Admin Panel</a>
+            <a href="/logout">🚪 Logout</a>
+        </div>
+
+        <div class="content">
+            <div id="message"></div>
+
+            <!-- Add User Section -->
+            <div class="section">
+                <h2>➕ Add New Phone Number</h2>
+                <form id="add-user-form">
+                    <div class="form-group">
+                        <label for="phone">📱 Phone Number</label>
+                        <input type="text" id="phone" placeholder="Enter phone number" maxlength="10" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">📝 Description</label>
+                        <input type="text" id="description" placeholder="User description" maxlength="100">
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="isAdmin"> Make Admin
+                        </label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">➕ Add Phone Number</button>
+                </form>
+            </div>
+
+            <!-- Users List Section -->
+            <div class="section">
+                <h2>👥 All Users</h2>
+                <table class="users-table">
+                    <thead>
+                        <tr>
+                            <th>📱 Phone Number</th>
+                            <th>📝 Description</th>
+                            <th>👤 Role</th>
+                            <th>📅 Created</th>
+                            <th>⏰ Last Login</th>
+                            <th>⚙️ Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="users-list">
+                        <!-- Users will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Load users on page load
+        window.addEventListener('load', loadUsers);
+
+        function showMessage(text, type) {
+            const messageDiv = document.getElementById('message');
+            messageDiv.innerHTML = `<div class="message ${type}">${text}</div>`;
+            setTimeout(() => {
+                messageDiv.innerHTML = '';
+            }, 5000);
+        }
+
+        async function loadUsers() {
+            try {
+                const response = await fetch('/admin/users');
+                const result = await response.json();
+
+                if (result.success) {
+                    displayUsers(result.users);
+                } else {
+                    showMessage(result.message, 'error');
+                }
+            } catch (error) {
+                showMessage('Error loading users: ' + error.message, 'error');
+            }
+        }
+
+        function displayUsers(users) {
+            const tbody = document.getElementById('users-list');
+            tbody.innerHTML = '';
+
+            Object.values(users).forEach(user => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td><code>${user.phone}</code></td>
+                    <td>${user.description || 'No description'}</td>
+                    <td>
+                        ${user.isAdmin ? 
+                            '<span class="admin-badge">👑 Admin</span>' : 
+                            '<span class="user-badge">👤 User</span>'
+                        }
+                    </td>
+                    <td>${new Date(user.createdAt).toLocaleDateString()}</td>
+                    <td>${user.lastLogin ? new Date(user.lastLogin).toLocaleDateString() : 'Never'}</td>
+                    <td>
+                        <button class="btn btn-primary" onclick="regeneratePhone('${user.phone}')">🔄 New Number</button>
+                        ${!user.isAdmin ? 
+                            `<button class="btn btn-danger" onclick="removeUser('${user.phone}')">🗑️ Remove</button>` : 
+                            ''
+                        }
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // Add user form
+        document.getElementById('add-user-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const phone = document.getElementById('phone').value.trim();
+            const description = document.getElementById('description').value.trim();
+            const isAdmin = document.getElementById('isAdmin').checked;
+
+            if (phone.length !== 10) {
+                showMessage('Phone number must be exactly 10 digits', 'error');
+                return;
+            }
+
+            try {
+                const response = await fetch('/admin/add-user', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ phone, description, isAdmin })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    showMessage(`Phone number added successfully: ${result.phone}`, 'success');
+                    document.getElementById('add-user-form').reset();
+                    loadUsers();
+                } else {
+                    showMessage(result.message, 'error');
+                }
+            } catch (error) {
+                showMessage('Error adding phone number: ' + error.message, 'error');
+            }
+        });
+
+        async function removeUser(phone) {
+            if (!confirm(`Are you sure you want to remove phone number ${phone}?`)) {
+                return;
+            }
+
+            try {
+                const response = await fetch('/admin/remove-user', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ phone })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    showMessage('Phone number removed successfully!', 'success');
+                    loadUsers();
+                } else {
+                    showMessage(result.message, 'error');
+                }
+            } catch (error) {
+                showMessage('Error removing phone number: ' + error.message, 'error');
+            }
+        }
+
+        async function regeneratePhone(oldPhone) {
+            if (!confirm(`Generate new phone number for ${oldPhone}?`)) {
+                return;
+            }
+
+            try {
+                const response = await fetch('/admin/regenerate-code', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ oldPhone })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    showMessage(`New phone number generated: ${result.phone}`, 'success');
+                    loadUsers();
+                } else {
+                    showMessage(result.message, 'error');
+                }
+            } catch (error) {
+                showMessage('Error generating new phone number: ' + error.message, 'error');
+            }
+        }
+    </script>
+</body>
+</html>
